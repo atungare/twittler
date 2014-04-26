@@ -6,22 +6,21 @@
   </head>
   <body>
     <script>
-
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $tweets = $('.tweets');
+        $tweets.html('');
 
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          $tweet.appendTo($tweets);
           index -= 1;
         }
-
       });
-
     </script>
+    <button class="refresh">Refresh</button>
+    <div class="tweets"></div>
   </body>
 </html>
