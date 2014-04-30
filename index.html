@@ -7,26 +7,33 @@
   </head>
   <body>
     <script>
-      var newTweets = function(prevIndex, allOrUser) {
+      $(document).ready(function() {
         var $tweets = $('.tweets');
-        var index = allOrUser.length - 1;
-          for(var i = index; i > prevIndex; i--) {
-            var tweet = allOrUser[i];
-            var $tweet = $('<div></div>');
-            $tweet.text(tweet.created_at + ' @' + tweet.user + ': ' + tweet.message);
-            $tweet.prependTo($tweets);
-          }
-        return index;
-      };
 
-      $(document).ready(function(){
-        var current = 0;
+        var newTweets = function(allOrUser) {
+          $('.tweets').html("");
+          var index = allOrUser.length;
+            for(var i = 0; i < index; i++) {
+              var tweet = allOrUser[i];
+              var $tweet = $('<div></div>');
+              var tweetText = tweet.created_at + ' @'
+                + "<button class=\"user\">" + tweet.user + "</button> " + ': ' 
+                + tweet.message;
+              $tweet.html(tweetText);
+              $tweet.prependTo($tweets);
+            }
+        };
 
-        current = newTweets(current, streams.home);
+        newTweets(streams.home);
 
         $('.newTweets').on('click', function() {
-          current = newTweets(current, streams.home)
+          newTweets(streams.home);
         });
+
+        $('.tweets').on('click', '.user', function() {
+          newTweets(streams.users[$(this).text()]);
+        });
+
       });
 
     </script>
