@@ -7,11 +7,11 @@
   </head>
   <body>
     <script>
-      var newTweets = function(prevIndex) {
+      var newTweets = function(prevIndex, allOrUser) {
         var $tweets = $('.tweets');
-        var index = streams.home.length - 1;
+        var index = allOrUser.length - 1;
           for(var i = index; i > prevIndex; i--) {
-            var tweet = streams.home[i];
+            var tweet = allOrUser[i];
             var $tweet = $('<div></div>');
             $tweet.text(tweet.created_at + ' @' + tweet.user + ': ' + tweet.message);
             $tweet.prependTo($tweets);
@@ -22,10 +22,10 @@
       $(document).ready(function(){
         var current = 0;
 
-        current = newTweets(current);
+        current = newTweets(current, streams.home);
 
         $('.newTweets').on('click', function() {
-          current = newTweets(current)
+          current = newTweets(current, streams.home)
         });
       });
 
